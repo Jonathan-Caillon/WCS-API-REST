@@ -24,6 +24,23 @@ module.exports = {
         res.send("Error while creating Wilder");
       });
   },
+  update: (req, res) => {
+    dataSource
+      .getRepository(Wilder)
+      .findOneBy(req.body.id)
+      .then(() => {
+        dataSource
+          .getRepository(Wilder)
+          .save(req.body)
+          .then(() => {
+            res.send("Wilder updated");
+          });
+      })
+      .catch(() => {
+        console.log(req.body);
+        res.send("Error while updating Wilder");
+      });
+  },
   delete: (req, res) => {
     dataSource
       .getRepository(Wilder)

@@ -11,6 +11,7 @@ app.get("/", (req, res) => {
 });
 
 app.get("/api/wilder", wilderController.read);
+app.put("/api/wilder", wilderController.update);
 app.delete("/api/wilder", wilderController.delete);
 
 app.post("/api/wilder", wilderController.create);
