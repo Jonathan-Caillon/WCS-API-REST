@@ -1,0 +1,25 @@
+GET http://localhost:3000/api/skill
+
+###
+
+POST http://localhost:3000/api/skill
+Content-Type: application/json
+
+{
+    "name": "HTML"
+}
+
+###
+
+DELETE http://localhost:3000/api/skill/6
+
+###
+
+PUT http://localhost:3000/api/skill/2
+Content-Type: application/json
+
+{   
+    "id": 1,
+    "name": "HTML"
+}
+
