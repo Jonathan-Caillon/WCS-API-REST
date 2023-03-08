@@ -13,23 +13,18 @@ Content-Type: application/json
 
 ### Supprimer Wilder
 
-DELETE http://localhost:3000/api/wilder/6
+DELETE http://localhost:3000/api/wilder/10
 
 ### Modifier Wilder
 
-PUT http://localhost:3000/api/wilder/2
+PUT http://localhost:3000/api/wilder/10
 Content-Type: application/json
 
 {   
-    "id": 2,
     "name": "Jane Doe 2"
 }
 
-### Ajouter Skill WIlder
+### Ajouter Skill Wilder
 
-POST http://localhost:3000/api/wilder/2/skill/
-Content-Type: application/json
+POST http://localhost:3000/api/wilder/4/skill/1
 
-{   
-    "name": "html"
-}

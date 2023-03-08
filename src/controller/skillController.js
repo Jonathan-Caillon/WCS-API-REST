@@ -1,26 +1,31 @@
 const dataSource = require("../utils").dataSource;
 const Skill = require("../entity/Skill");
 
-module.exports = {
-  create: async (req, res) => {
+class SkillController {
+  async create(req, res) {
     try {
       await dataSource.getRepository(Skill).save(req.body);
-      res.send("Created Skill");
+      res.status(201).send("Created Skill");
     } catch (err) {
+      if (err.code === "SQLITE_CONSTRAINT") {
+        return res.status(409).send("Skill already exists");
+      }
       console.error(err);
-      res.send("Error while creating Skill");
+      res.status(400).send("Error while creating Skill");
     }
-  },
-  read: async (req, res) => {
+  }
+
+  async read(req, res) {
     try {
       const data = await dataSource.getRepository(Skill).find();
       res.send(data);
     } catch (err) {
       console.error(err);
-      res.send("Error while reading Skill");
+      res.status(400).send("Error while reading Skill");
     }
-  },
-  update: async (req, res) => {
+  }
+
+  async update(req, res) {
     try {
       const updatedUser = await dataSource
         .getRepository(Skill)
@@ -28,18 +33,29 @@ module.exports = {
       res.send(updatedUser);
     } catch (err) {
       console.error(err);
-      res.send("Error while updating Skill");
+      res.status(400).send("Error while updating Skill");
     }
-  },
-  delete: async (req, res) => {
+  }
+
+  async delete(req, res) {
     try {
+      const skillId = req.params.id;
+      const existingWilder = await dataSource
+        .getRepository(Skill)
+        .findOneBy({ id: skillId });
+      if (existingWilder === null) {
+        res.status(404).send("Skill not found");
+        return;
+      }
       const deletedUser = await dataSource
         .getRepository(Skill)
         .delete(req.params.id);
       res.send(deletedUser);
     } catch (err) {
       console.error(err);
-      res.send("Error while deleting Skill");
+      res.status(400).send("Error while deleting Skill");
     }
-  },
-};
+  }
+}
+
+module.exports = SkillController;
